@@ -1,0 +1,71 @@
+{% extends 'store/base.html' %}
+{% load cart %}
+{% block css%}
+<style>
+    body{
+        background-color: #ecedee;
+    }
+</style>
+{% endblock %}
+{% block nav %}
+<br><li><a href="/cart">Cart</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="index">
+    <div class="filters">
+        <div class="categories">
+            <ul>
+                <h4>Categories</h4>
+                <li><a href="/index">All</a></li>
+                {% for c in category %}
+                <li><a href="/index?category_id={{c.id}}">{{c.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="sort">
+            <ul>
+                <h4>Sort</h4>
+                <li><a href="/index{% for i in product %}?ATOZ={{i.id}} {% endfor %}">Name, A To Z</a></li>
+                <li><a href="/index{% for i in product %}?ZTOA={{i.id}} {% endfor %}">Name, Z To A</a></li>
+                <li><a href="/index{% for i in product %}?LTH={{i.id}} {% endfor %}">Price, Low To High</a></li>
+                <li><a href="/index{% for i in product %}?HTL={{i.id}} {% endfor %}">Price, High To Low</a></li>
+                <li><a href="/index?cnd=New">Sort By New</a></li>
+                <li><a href="/index?cnd=Old">Sort By Old</a></li>
+            </ul>
+        </div>
+        <div class="price">
+            <ul>
+                <h4>Price</h4>
+                {% for p in filter_price %}
+                <li><a href="/index?price_filter={{p.id}}">{{p.price}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="brand">
+            <ul>
+                <h4>Brands</h4>
+                {% for b in brand %}
+                <li><a href="/index?brand_id={{b.id}}">{{b.name}}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+       
+    </div>
+    
+    <div class="products">
+        {% for p in product %}
+        <div class="card">
+            <a href="product-details?product_id={{p.id}}"><img src="{{p.image.url}}" alt="Product Image"></a>
+            <div class="card-content">
+                <p>{{p.name|truncatewords:6}}</p>
+                <p>Price: {{p.price|currency}}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

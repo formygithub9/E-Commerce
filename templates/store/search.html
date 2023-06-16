@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+{% block css %}
+<style>
+    body{
+        background-color:#ecedee;
+    }
+</style>
+{% endblock %}
+{%block content %}
+<div class="body-content">
+<div style="padding-left:20px">
+    <h2>Search Result :</h2>
+</div>
+{% if product|length < 1 %}
+<p style="color:red;padding-left:20px">No Product found</p>
+{% endif %}
+<div class="products">
+    {% for p in product %}
+    <div class="card">
+        <img src="{{p.image.url}}" alt="Product Image">
+        <div class="card-content">
+            <p>{{p.name|truncatewords:6}}</p>
+            <p>Price: ₹{{p.price}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

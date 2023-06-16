@@ -1,0 +1,108 @@
+{% extends 'store/base.html' %}
+
+{% block css %}
+<style>
+    .contact-form-item1{
+        border:none;
+        box-shadow: 0 2px 4px 0 rgb(0,0,0,0.6);
+        padding-left:15px;
+        height:30px;
+        border-radius: 10px;
+        width:385px;
+    }
+    .contact-form-item2{
+        border:none;
+        box-shadow: 0 2px 4px 0 rgb(0,0,0,0.6);
+        padding-left: 15px;
+        height:30px;
+        border-radius: 10px;
+        width:800px;
+    }
+    .contact-form-item3{
+        border:none;
+        box-shadow: 0 2px 4px 0 rgb(0,0,0,0.6);
+        padding-left: 15px;
+        padding-top: 15px;
+        height:180px;
+        border-radius: 10px;
+        width:800px;
+    }
+    .contact-form-item4{
+        font-weight:bold;
+        height:40px;
+        width:150px;
+        background-color:orange;
+        margin-left: 340px;
+        border-radius: 10px;
+        border:2px solid black;
+        transition:0.4s;
+    }
+    .contact-form-item4:hover{
+        cursor:pointer;
+        transform:scale(1.05);
+        transition:0.4s;
+    }
+    .form-heading{
+        background:#343a40;
+        color:orange;
+        padding:5px 10px;
+        text-align:center;
+       
+    }
+    .msg{
+        font-size:20px;
+        text-align:center;
+        color:red;
+    }
+    
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="body-content">
+<div class="msg">
+    {{msg}}
+</div><br/>
+<div style="height:470px; width:900px; box-shadow: 0 4px 8px 0 rgb(0,0,0,0.6);margin:auto;border-radius:10px;background-color:#f7f9f9">
+    <div class="form-heading">
+        <h1>Send a Quest</h1>
+    </div>
+    <div style="margin:auto;width:fit-content;padding: 10px 10px;">
+        <form action="/contact" method="POST">
+            {% csrf_token %}
+            <div style="display:flex; gap:10px">
+                <div>
+                    <input class="contact-form-item1" name="name" placeholder="Name" type="text"/>
+                </div>
+                <div>
+                    <input class="contact-form-item1" name="email" placeholder="E-mail" type="email"/>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <input class="contact-form-item2" name="subject" placeholder="Subject" type="text" />
+            </div>
+            <br/>
+            <div>
+                <textarea class="contact-form-item3" name="message" placeholder="Your message"></textarea>
+            </div>
+            <br/>
+            <div>
+                <button class="contact-form-item4" type="submit">Send Message</button>
+            </div> 
+            {% comment %} <div style="display:flex; gap:10px">
+                <div>Name: {{form.Name}}</div><br/>
+                <div>Email: {{form.email}}</div>
+            </div><br/>   
+            <div>Subject: {{form.subject}}</div><br/>
+            <div style="display:flex">
+                <div>Message:</div>
+                <div>{{form.message}}</div>
+            </div>
+            <button class="contact-form-item4" type="submit">Send Message</button> {% endcomment %}
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}

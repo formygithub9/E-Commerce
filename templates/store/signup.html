@@ -1,0 +1,85 @@
+{% extends 'store/base.html' %}
+
+{% block css %}
+<style>
+    .contact-form-item1{
+        border:none;
+        box-shadow: 0 2px 4px 2px white;
+        padding-left:15px;
+        height:30px;
+        border-radius: 5px;
+        width:400px;
+    }
+    body{
+        background-color:#dee2e6;
+    }
+    .button{
+        transition:0.4s;
+        background-color:#ff9e00;
+        border:2px solid black;
+        border-radius:5px;
+        height:40px;
+        width:90px;
+        font-size:15px;
+        font-weight:bold;
+    }
+    .button:hover{
+        cursor:pointer;
+        transform: scale(1.05);
+        transition:0.4s;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="body-content">
+<div style="color:red;text-align:center">{{msg}}</div>
+<div style="height:450px;width:600px;box-shadow: 0 4px 8px 0 rgb(0,0,0,0.6); margin-left:350px;margin-top:45px;border-radius:8px;background-color:#343a40">
+    <div style="display:flex; gap:15px;justify-content:center;">
+        <a style="color:orange;text-decoration:none;" href="/login">
+            <h1>Login</h1>
+        </a>
+        <h1 style="color:orange">|</h1>
+        <a style="color:orange;text-decoration:none;" href="/signup">
+            <h1>Signup</h1>
+        </a>
+    </div>
+    <div style="padding:15px 90px;">
+        <form action="/signup" method="POST">
+            {% csrf_token %}
+            <div>
+                <input class="contact-form-item1" name="username" placeholder="Username" type="text"/>
+            </div><br/>
+            <div>
+                <input class="contact-form-item1" name="first_name" placeholder="First Name" type="text"/>
+            </div><br/>
+            <div>
+                <input class="contact-form-item1" name="last_name" placeholder="Last Name" type="text"/>
+            </div><br/>
+            <div>
+                <input class="contact-form-item1" name="email" placeholder="Email" type="email"/>
+            </div><br/>
+            <div>
+                <input class="contact-form-item1" name="pass1" placeholder="Password" type="password"/>
+            </div><br/>
+            <div>
+                <input class="contact-form-item1" name="pass2" placeholder="Confirm Password" type="password"/>
+            </div><br/>
+            
+            {% comment %} <div style="display:flex; gap:180px">
+                <div>
+                    <input name="remember_me" type="checkbox"/>Remember me
+                </div>
+                <div>
+                    <a style="text-decoration:None" href="#">Forgot Password ?</a>
+                </div>
+            </div><br/> {% endcomment %}
+            <div>
+                <button class="button" type="submit">Sing Up</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}

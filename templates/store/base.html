@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html>
+    <head>
+        <title>Eshop</title>
+        <link rel="stylesheet" href="{% static 'CSS/Style1.css' %}">
+        <script src="https://kit.fontawesome.com/ae2987c145.js" crossorigin="anonymous"></script>
+        {% block css %}
+        {% endblock %}
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="navlist">
+                    <li><img src="{% static 'images/3.jpg' %}" width="50" height="50s" alt="Logo"></li>
+                    <li><a href="/"><strong style="color:orange;font-size:40px;letter-spacing: 1px;">Y<span style="color:white">S</span>hop</strong></a></li>
+                    
+                    
+                    
+                    
+                    <div style="padding-top:5px;">
+                        <form action="/search">
+                            <input class="search" type="text" placeholder="Search Product" name="query">
+                            <button id="search">Search</button>
+                        </form>
+                    </div>
+                    <li><a href='/index'><i class="fa-solid fa-house-chimney icon"></i></a></li>
+                    <li><a href="/cart"><i class="fa-sharp fa-solid fa-cart-shopping icon"></i></a></li>
+                    <li><a href='/contact'><i class="fa-solid fa-envelope icon"></i></a></li>
+                    <li><a href="/login"><i class="fa-solid fa-user icon"></i></a></li>
+                    {% if user.is_authenticated %}
+                    <li class="logout-btn"><a href="/logout" id="logout-btn">Logout</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        {% block content %}
+        {% endblock %}
+        <footer class="foot-box">
+            <h2>Connect with me</h2>
+            <div name="foot-icon">
+                <a href="https://www.linkedin.com/in/shashank-mishra-178094233"><i class="fa-brands fa-linkedin-in icon"></i></a>
+                <a href="https://github.com/formygithub9"><i class="fa-brands fa-github icon"></i></a>
+                <a href="https://www.facebook.com/shashwat.misra.5"><i class="fa-brands fa-square-facebook icon"></i></a>
+            </div>
+            <h4>Made with <span style="color:red">&#10084;</span> by Shashank</h4>
+        </footer>  
+    </body>
+</html>

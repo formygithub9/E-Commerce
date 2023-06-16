@@ -1,0 +1,135 @@
+{% extends 'store/base.html' %}
+{% block css %}
+<style>
+    body{
+        background-color:#ecedee;
+    }
+    
+    h1{
+        color: #5A5A5A;
+        font-size:40px;
+        text-align:center;
+    }
+    table{
+        background-color:white;
+        border:2px solid #5A5A5A;
+        padding:10px;
+        margin:auto;
+        box-shadow: 2px 4px 8px 1px rgb(0,0,0,0.6);
+        text-align:center;
+    }
+    table thead th{
+        color:#0a9396;
+        
+    }
+    table tbody tr{
+        
+        border:1px solid grey;
+        border-radius:5px;
+        box-shadow: 0 2px 4px 1px rgb(0,0,0,0.6);
+    }
+    table tbody td{
+        padding:5px;
+        border-bottom:1px solid black;
+    }
+    #msg{
+        color:black;
+        font-size:40px;
+        padding-left:450px;
+    }
+    .button1{
+        margin-left:575px;
+        background-color:#ff9e00;
+        border:2px solid black;
+        border-radius:5px;
+        height:50px;
+        width:200px;
+        font-size:15px;
+        font-weight:bold;
+        transition:0.5s;
+    }
+    .button1:hover{
+        transition:0.5s;
+        cursor:pointer;
+        transform: scale(1.05);
+    }
+   
+</style>
+{% endblock %}
+{% block content %}
+{% load cart %}
+
+{% if request.session.cart|length < 1 %}
+<div class="body-content">
+    <br/><strong id="msg">There is no item in your cart.</strong><br/><br/><br/>
+    <a href="/index"><button class="button1">Continue Shopping</button></a><br/><br/>
+</div>
+
+
+{% else %}
+<div class="body-content">
+    <h1>Your Cart</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in product %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td><img style="height:60px" src="{{p.image.url}}"></td>
+                <td>{{p.name|truncatewords:10}}</td>
+                <td>{{p.price|currency}}</td>
+                <td>
+                    <div style="display:flex;gap:5px">
+                        <form action="/cart" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="product" value='{{p.id}}'>
+                            <input hidden type="text" name="remove" value="True">
+                            <input type="submit" value="-">
+                        </form>
+                        <div>{{p.id|quantity:request.session.cart}}</div>
+                        <form action="/cart" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="product" value='{{p.id}}'>
+                            <input type="submit" value="+">
+                        </form>
+                </td>
+                <td>{{p|price_total:request.session.cart|currency}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th style="padding:5px;">Total</th>
+                <th></th>
+                <th></th>
+                <th>{{product|total_cart_price:request.session.cart|currency}}</th>
+            </tr>
+        </tfoot>
+
+    </table>
+
+    <form action="check-out" method="POST">
+        {% csrf_token %}
+        <input name="amount" value="{{product|total_cart_price:request.session.cart}}" hidden/>
+        <br/><button class="button12" type="submit">Check Out</button>
+    </form>
+
+</div>
+{% endif %}
+
+{% endblock %}

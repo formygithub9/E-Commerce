@@ -1,0 +1,165 @@
+header{
+    position:fixed;
+    top:0;
+    width:100%;
+    margin-left:-8px;
+    height:80px;
+    border-radius: 5px;
+    background-color: black;
+    margin-bottom: 10px;
+}
+header li{
+    list-style: none;
+}
+
+header li a{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.navlist{
+    display: flex;
+    gap:15px;
+    z-index:100;
+    padding-left:15px;
+}
+.search{
+    border-radius: 5px;
+    text-align: center;
+    margin-left:180px;
+    width:400px;
+    height:30px;
+
+}
+#search{
+    padding:3px 10px;
+    border-radius: 5px;
+    background-color:#fff;
+    transition: 0.4s;
+                
+}
+#search:hover{
+    transform: scale(1.05);
+    background:orange;
+    transition: 0.4s;
+}
+#logout-btn{
+    border:2px solid white;
+    border-radius:5px;
+    margin-left:20px;
+    background-color:black;
+    color:orange;
+    font-size:25px;
+    
+    padding:2px;
+    transition:0.4s;
+}
+.logout-btn{
+    margin-top:10px;
+    transition:0.5s;
+}
+.logout-btn:hover{
+    transform:scale(1.10);
+    transition:0.5s;
+}
+.index{
+    margin-top: 80px;
+    display:flex;
+}
+.body-content{
+    margin-top:82px;
+}
+
+.filters{
+    margin-top:5px;
+    
+    height: auto;
+    background-color:#e5e5e5;
+    
+    width: 20%;
+}
+
+.filters a{
+    color:black;
+    text-decoration: none;
+}
+.filters a:hover{
+    color:red;
+    font-weight: bold;
+}
+
+.filters ul{
+    list-style: none;
+}
+
+.products{
+    margin-top: 15px;
+    margin-left:40px;
+    flex-wrap: wrap;
+    padding: 10px 10px;
+    display:flex;
+    gap:25px;
+    width: 75%;
+}
+.card{
+    background-color: white;
+    height:340px;
+    width:230px;
+    box-shadow: 2px 4px 8px 4px rgb(0,0,0,0.6);
+}
+.card:hover{
+    
+    cursor: pointer;
+}
+.card img{
+    padding: 5px 5px;
+    height:210px;
+    width:210px;
+}
+.card-content{
+    text-align: justify;
+    padding: 2px 16px;
+    text-align: center;
+}
+
+.button12{
+    transition:0.4s;
+    font-weight:bold;
+    margin-left:600px;
+    height:35px;
+    width:auto;
+    background:#ffb700;
+    border-radius:5px;
+    padding:auto;
+}
+.button12:hover{
+    transition:0.4s;
+    transform:scale(1.05);
+    cursor: pointer;
+}
+.foot-icon{
+    display:flex;    
+}
+.foot-box{ 
+    margin-top:5px;
+    padding:4px;
+    width:101%;
+    margin-left:-7px;
+    text-align:center;
+    background:black;
+    color:#fff;
+}
+
+.icon{
+    font-size:25px;
+    color:#fff;
+    padding-top:12px;
+    margin-left:20px;
+    transition: 0.5s;
+}
+.icon:hover{
+    color:orange;
+    transform: scale(1.20);
+    transition: 0.3s;
+}

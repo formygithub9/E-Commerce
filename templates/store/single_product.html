@@ -1,0 +1,139 @@
+{% extends 'store/base.html' %}
+{% load cart %}
+
+{% block nav %}
+<br><li><a href="/cart">Cart</a></li>
+{% endblock %}
+
+{% block css %}
+<style>
+.small-img-group{
+    display:flex;
+    justify-content: space-between;
+}
+.small-img{
+    flex-basis:30%;
+    cursor:pointer;
+}
+.small-img img{
+    
+    height:80px;
+    width:auto;
+}
+
+.main{
+    display:flex;
+}
+.product-images{
+    margin-top:20px;
+    width:40%;
+}
+.product-content{
+    width:60%;
+}
+.button{
+    background-color:orange;
+    border:1px solid black;
+    border-radius:5px;
+    height:50px;
+    width:120px;
+    font-size:15px;
+    font-weight:bold;
+    transition:0.4s;
+}
+.button:hover{
+    cursor:pointer;
+    transform: scale(1.05);
+    transition:0.5s;
+}
+.quan{
+    
+    background-color:orange;
+    border:1px solid black;
+    border-radius:2px;
+    height:30px;
+    width:30px;
+} 
+.quan:hover{
+    cursor:pointer;
+    transform: scale(1.05);
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="body-content">
+<section class="sproduct">
+{% for p in product %}
+    <div class="main">
+        <div class="product-images">
+            <img style="height:auto;width:500px;" src="{{p.image.url}}" alt="Product Image">
+            <div class="small-img-group">
+                {% for i in p.images_set.all %}
+                <div class="small-img">
+                    <img src="/{{i.image}}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="product-content">
+            <h2>{{p.name}}</h2>
+            <h3>{{p.price|currency}}</h3>
+            <div>
+                <ul>
+                    <li>Category: {{p.category}} </li>
+                </ul>
+            </div>
+            <div>
+                <span>Tags: </span>
+                <ul>
+                    <li>
+                        {% for t in p.tags_set.all %}
+                        <a href="#">{{t.name}} ,</a>
+                        {% endfor %}
+                    </li>
+                </ul>
+            </div>
+            <div style="display:flex;gap:15px">
+                <div>
+                    {% if p.id|is_in_cart:request.session.cart %}
+                    <div style="display:flex;gap:5px">
+                        <form style="padding-top:10px;" action="/product-details" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="product" value='{{p.id}}'>
+                            <input hidden type="text" name="remove" value="True">
+                            <input class="quan" type="submit" value="-">
+                        </form>
+                        <div style="padding-top:15px;font-weight:bold">{{p.id|quantity:request.session.cart}} in Cart</div>
+                        <form style="padding-top:10px;" action="/product-details" method="POST">
+                            {% csrf_token %}
+                            <input hidden type="text" name="product" value='{{p.id}}'>
+                            <input class="quan" type="submit" value="+">
+                        </form>
+                    </div>
+                    {% else %}
+                    <form action="/product-details" method="POST">
+                        {% csrf_token %}
+                        <input hidden type="text" name="product" value='{{p.id}}'>
+                        <input class="button" type="submit" value="Add to Cart">
+                    </form>
+                    {% endif %}
+                </div>
+                
+                <div>
+                    <a href="/cart"><button style="background-color:#ffea00;" class="button">Go To Cart</button></a>
+                </div>
+            </div>
+           
+            <h4>Product Information</h4>
+            <span>{{p.information|safe}}</span>
+            <h4>Product Description</h4>
+            <span>{{p.description|safe}}</span>
+        </div>
+    </div>
+{% endfor %}
+</section>
+</div>
+{% endblock %}

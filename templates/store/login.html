@@ -1,0 +1,71 @@
+{% extends 'store/base.html' %}
+
+{% block css %}
+<style>
+    body{
+        background-color:#dee2e6;
+    }
+    .contact-form-item1{
+        border:none;
+        box-shadow: 0 2px 4px 2px white;
+        padding-left:15px;
+        height:30px;
+        border-radius: 5px;
+        width:400px;
+    }
+    .button{
+        transition:0.4s;
+        background-color:#ff9e00;
+        border:2px solid black;
+        border-radius:5px;
+        height:40px;
+        width:65px;
+        font-size:15px;
+        font-weight:bold;
+    }
+    .button:hover{
+        transition:0.4s;
+        cursor:pointer;
+        transform: scale(1.05);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="body-content">
+<div style="height:300px;width:600px;margin-left:350px;margin-top:45px;box-shadow: 0 4px 8px 0 rgb(0,0,0,0.6);border-radius:8px;background-color:#343a40">
+    <div style="display:flex; gap:15px;justify-content:center;">
+        <a style="color:orange;text-decoration:none;" href="/login">
+            <h1>Login</h1>
+        </a>
+        <h1 style="color:orange">|</h1>
+        <a style="color:orange;text-decoration:none;" href="/signup">
+            <h1>Signup</h1>
+        </a>
+    </div>
+    <div style="padding:15px 90px;">
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            <div>
+                <input class="contact-form-item1" name="username" placeholder="Username" type="text"/>
+            </div><br/>
+            <div>
+                <input class="contact-form-item1" name="password" placeholder="Password" type="password"/>
+            </div><br/>
+            <div style="display:flex; gap:180px">
+                <div>
+                    <input name="remember_me" type="checkbox"/><span style="color:orange;">Remember me</span>
+                </div>
+                <div>
+                    <a style="text-decoration:None;color:orange;" href="#">Forgot Password ?</a>
+                </div>
+            </div><br/>
+            <div>
+                <button class="button" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block css %}
+<style>
+    h1{
+        text-align:center;
+    }
+    .tick{
+        padding-left:500px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="body-content">
+<img class="tick" src="{% static 'images/4.jpg' %}" width="300" height="300s" alt="green-tick">
+<h1>Thank You for placing Order</h1>
+</div>
+{% endblock %}

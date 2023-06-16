@@ -1,0 +1,165 @@
+{% extends 'store/base.html' %}
+{% block css %}
+<style>
+    
+    h1{
+        color: #5A5A5A;
+        margin-left:15px;
+    }
+    .customer-details{
+        width:520px;
+        border:2px solid #5A5A5A;
+        box-shadow: 2px 4px 8px 1px rgb(0,0,0,0.6);
+        margin-left:100px;
+        margin-top:20px;
+        padding:10px 40px; 
+    }
+    .order-details{
+        
+        text-align:center;
+        margin-right:100px;
+        margin-top:20px;
+        padding:10px;
+        border:2px solid #5A5A5A;
+        box-shadow: 2px 4px 8px 1px rgb(0,0,0,0.6);
+    }
+    label{
+        
+        color:#0a9396;
+        font-weight:bold;
+    }
+    .item1{
+        border:none;
+        box-shadow: 0 2px 4px 0 rgb(0,0,0,0.6);
+        padding-left:15px;
+        height:20px;
+        border-radius: 2px;
+        width:350px;
+    }
+    table thead th{
+        color:#0a9396;
+        
+    }
+    table tbody tr{
+        padding:5px;
+        border: 1px solid grey;
+        border-radius:5px;
+        box-shadow: 0 2px 4px 1px rgb(0,0,0,0.6);
+    }
+    table tbody td{
+        padding:5px;
+        border-bottom:1px solid black;
+    }
+    .space-between{
+        display:flex;
+        justify-content:space-between;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+{% load cart %}
+<div class="body-content">
+<form method="POST" action="/check-out/placeorder">
+    {% csrf_token %}
+    
+    <div style="display:flex">
+        <div style="width:65%">
+            
+            <div class="customer-details">
+                <h1>Billing Details</h1>
+                <div class="space-between">
+                    <label>First Name</label> 
+                    <input class="item1" name="first_name" type="text" value="{{user.first_name}}" readonly/>
+                    <input name="order_id" type="text" value="{{order_id}}" hidden/>
+                    <input name="payment" type="text" value="{{payment}}" hidden/>
+                    <input name="amount" type="text" value="{{product|total_cart_price:request.session.cart|currency}}" hidden/>
+                </div><br/>
+                <div class="space-between">
+                    <label>Last Name</label> 
+                    <input class="item1" name="last_name" type="text" value="{{user.last_name}}" readonly/>
+                </div><br/>
+                <div class="space-between">
+                    <label>Country</label> 
+                    <select class="item1" style="width:367px;" name="country">
+                        <option>Select a country</option>
+                        <option>Australia</option>
+                        <option>Canada</option>
+                        <option>Denmark</option>
+                        <option>Egypt</option>
+                        <option>France</option>
+                        <option>Germany</option>
+                        <option>India</option>
+                        <option>Japan</option>
+                        <option>Russia</option>
+                    </select>
+                </div><br/>
+                <div class="space-between">
+                    <label>Address</label> 
+                    <input class="item1" name="address" type="text"/>
+                </div><br/>
+                <div class="space-between">
+                    <label>State</label> 
+                    <input class="item1" name="state" type="text"/>
+                </div><br/>
+                <div class="space-between">
+                    <label>City</label> 
+                    <input class="item1" name="city" type="text"/>
+                </div><br/>
+                <div class="space-between">
+                    <label>Postcode</label> 
+                    <input class="item1" name="postcode" type="text"/>
+                </div><br/>
+                <div class="space-between">
+                    <label>Phone</label> 
+                    <input class="item1" name="phone" type="text"/>
+                </div><br/>
+                <div class="space-between">
+                    <label>E-mail</label>
+                    <input class="item1" name="email" type="email" value="{{user.email}}" readonly/>
+                </div>
+            </div>
+        </div>
+        <div class="order-details" style="width:35%">
+            <h1 style="text-align:center;">Your Orders</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in product %}
+                    <tr class="tr">
+                        <td>{{forloop.counter}}</td>
+                        <td style="text-align:justify;">{{p.name|truncatewords:8}}</td>
+                        <td>{{p.id|quantity:request.session.cart}}</td>
+                        <td>{{p|price_total:request.session.cart|currency}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th style="padding:5px;">Total</th>
+                        <th></th>
+                        <th>{{product|total_cart_price:request.session.cart|currency}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+            
+            <button class="button12" style="margin-left:0;" type="submit">Continue</button> 
+        </div>    
+    </div>
+    
+</form>
+</div>
+
+{% endblock %}
